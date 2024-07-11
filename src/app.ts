@@ -1,12 +1,9 @@
-import { CronJob } from "cron";
+import { Server } from "./presentation/server";
 
-console.log("test");
+(async () => {
+  main();
+})();
 
-const job = new CronJob(
-  "*/5 * * * * *",
-  () => {
-    console.log(new Date().getTime());
-  },
-  null,
-  true
-);
+async function main() {
+  Server.start();
+}
