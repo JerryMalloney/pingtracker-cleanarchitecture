@@ -20,8 +20,7 @@ export class CheckLink {
         ping: result.time.toString(),
         createdAt: new Date(),
       });
-
-      console.log(result.time);
+      return result.time;
     } catch (error) {
       console.log(error);
     }

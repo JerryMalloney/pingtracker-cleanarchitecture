@@ -10,7 +10,9 @@ export class Server {
   public static async start() {
     CronService.createJob("*/2 * * * * *", () => {
       const url = envs.URL;
-      new CheckLink(postgresRepository).execute(url);
+      new CheckLink(postgresRepository)
+        .execute(url)
+        .then((link) => console.log(link));
     });
   }
 }
