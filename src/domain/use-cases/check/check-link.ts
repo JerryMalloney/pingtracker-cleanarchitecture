@@ -1,4 +1,4 @@
-import ping from "ping";
+import { PingChecker } from "../../../config/plugins/ping.plugin";
 import { LogSeverityLevel } from "../../entities/log.entity";
 import { LogRepository } from "../../repository/log.repository";
 
@@ -7,7 +7,7 @@ export class CheckLink {
 
   public async execute(url: string) {
     try {
-      const result = await ping.promise.probe(url);
+      const result = await PingChecker.check(url);
       let level;
       if (result.alive == true) {
         level = LogSeverityLevel.low;
@@ -17,10 +17,10 @@ export class CheckLink {
       this.logRepository.saveLogs({
         level,
         origin: url,
-        ping: result.time.toString(),
+        ping: result.ping.toString(),
         createdAt: new Date(),
       });
-      return result.time;
+      return result.ping;
     } catch (error) {
       console.log(error);
     }
